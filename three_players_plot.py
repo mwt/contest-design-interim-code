@@ -24,13 +24,15 @@ n = 10000
 k = np.linspace(1.0, 3.5, n)
 k_grid = np.column_stack(np.broadcast_arrays(5 / 6, 1.0, k))
 
-# Output directory
-output_dir = pathlib.Path("plots/three_players_plot")
+# Output directories
+plot_dir = pathlib.Path("plots/three_players_plot")
+data_dir = pathlib.Path("data/three_players_plot")
 
 ####################### Setup #######################
 
 # Create directory for plots
-output_dir.mkdir(parents=True, exist_ok=True)
+plot_dir.mkdir(parents=True, exist_ok=True)
+data_dir.mkdir(parents=True, exist_ok=True)
 
 scores = []
 prizes = []
@@ -45,6 +47,29 @@ for ki in k_grid:
 np_scores = np.array(scores)
 np_prizes = np.array(prizes)
 np_revenues = np.array(revenues)
+
+# Save to tsv
+np.savetxt(
+    data_dir / "scores.tsv",
+    np.column_stack((k, np_scores)),
+    delimiter="\t",
+    header="k\ts1\ts2\ts3",
+    comments="",
+)
+np.savetxt(
+    data_dir / "prizes.tsv",
+    np.column_stack((k, np_prizes)),
+    delimiter="\t",
+    header="k\tp1\tp2\tp3",
+    comments="",
+)
+np.savetxt(
+    data_dir / "revenues.tsv",
+    np.column_stack((k, np_revenues)),
+    delimiter="\t",
+    header="k\tR",
+    comments="",
+)
 
 
 ####################### Plots #######################
@@ -71,7 +96,7 @@ ax.set_ylabel("Revenue")
 fig.set_size_inches(16 / 2.54, 9 / 2.54)
 
 # Save the plot
-fig.savefig(output_dir / "revenue.pdf", bbox_inches="tight")
+fig.savefig(plot_dir / "revenue.pdf", bbox_inches="tight")
 
 ###################### Scores
 
@@ -106,7 +131,7 @@ ax.set_ylabel("Scores")
 fig.set_size_inches(16 / 2.54, 9 / 2.54)
 
 # Save the plot
-fig.savefig(output_dir / "scores.pdf", bbox_inches="tight")
+fig.savefig(plot_dir / "scores.pdf", bbox_inches="tight")
 
 
 ###################### Prizes
@@ -146,4 +171,4 @@ ax.set_ylabel("Prizes")
 fig.set_size_inches(16 / 2.54, 9 / 2.54)
 
 # Save the plot
-fig.savefig(output_dir / "prizes.pdf", bbox_inches="tight")
+fig.savefig(plot_dir / "prizes.pdf", bbox_inches="tight")
