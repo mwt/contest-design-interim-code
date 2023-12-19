@@ -11,6 +11,7 @@ The plots are saved in the directory: plots/three_players_plot/
 import pathlib
 
 import matplotlib.pyplot as plt
+import matplotlib.font_manager
 import numpy as np
 
 from three_players import analytical_solution
@@ -120,16 +121,16 @@ for spine in ax.spines.values():
     spine.set_visible(False)
 
 # Control the colors of the lines
-ax.plot(k, np_scores[:, 2], label="Player 3", color="red", linestyle="-")
-ax.plot(k, np_scores[:, 1], label="Player 2", color="green", linestyle="--")
-ax.plot(k, np_scores[:, 0], label="Player 1", color="blue", linestyle=":")
+ax.plot(k, np_scores[:, 2], label=r"Player $3$", color="red", linestyle="-")
+ax.plot(k, np_scores[:, 1], label=r"Player $2$", color="green", linestyle="--")
+ax.plot(k, np_scores[:, 0], label=r"Player $1$", color="blue", linestyle=":")
 
 # Draw thin, dotted grey lines at switching points
 for i in [1.5, 2.0, 2.5, 3.0]:
     ax.axvline(i, linestyle=":", color="grey", linewidth=0.5)
 
-# Add a legend
-ax.legend()
+# Style the legend
+ax.legend(fancybox=False, edgecolor="black", framealpha=1.0)
 
 # Set bounds for the axes
 ax.set_xlim(1.0, 3.5)
@@ -137,7 +138,7 @@ ax.set_ylim(0.0, 1.0)
 
 # Set labels
 ax.set_xlabel(r"$k_3$")
-ax.set_ylabel("Scores")
+ax.set_ylabel(r"Scores")
 
 # Make plot 16:9
 fig.set_size_inches(plot_width, plot_height)
@@ -156,20 +157,27 @@ for spine in ax.spines.values():
     spine.set_visible(False)
 
 # Control the colors of the lines
-ax.plot(k, np_prizes[:, 2], label="Player 3", color="red", linestyle="-", linewidth=1.5)
 ax.plot(
-    k, np_prizes[:, 1], label="Player 2", color="green", linestyle="--", linewidth=1.5
+    k, np_prizes[:, 2], label=r"Player $3$", color="red", linestyle="-", linewidth=1.5
 )
 ax.plot(
-    k, np_prizes[:, 0], label="Player 1", color="blue", linestyle=":", linewidth=1.5
+    k,
+    np_prizes[:, 1],
+    label=r"Player $2$",
+    color="green",
+    linestyle="--",
+    linewidth=1.5,
+)
+ax.plot(
+    k, np_prizes[:, 0], label=r"Player $1$", color="blue", linestyle=":", linewidth=1.5
 )
 
 # Draw thin, dotted grey lines at switching points
 for i in [1.5, 2.0, 2.5, 3.0]:
     ax.axvline(i, linestyle=":", color="grey", linewidth=0.5)
 
-# Add a legend
-ax.legend()
+# Style the legend
+ax.legend(fancybox=False, edgecolor="black", framealpha=1.0)
 
 # Set bounds for the axes
 ax.set_xlim(1.0, 3.5)
@@ -177,7 +185,7 @@ ax.set_ylim(0.0, 1)
 
 # Set labels
 ax.set_xlabel(r"$k_3$")
-ax.set_ylabel("Prizes")
+ax.set_ylabel(r"Prizes")
 
 # Make plot 16:9
 fig.set_size_inches(plot_width, plot_height)
