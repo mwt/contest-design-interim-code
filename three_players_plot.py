@@ -30,13 +30,29 @@ data_dir = pathlib.Path("data/three_players_plot")
 
 # Plot size
 plot_width = 5.5
-plot_height = 2.3
+plot_height = 2.2
+
+# Set colors
+ftc_red = "#DB504A"
+ftc_blu = "#065CB4"
+ftc_gld = "#E7A941"
+ftc_grn = "#2E9557"
+ftc_dgy = "#414751"
+ftc_blk = "#1B1B1B"
+
+## TeX preamble
+preamble = [
+    r"\usepackage[sfdefault]{inter}",
+    r"\usepackage{sansmath}",
+    r"\sansmath",
+]
 
 # Set matplotlib parameters
 plt.rcParams.update(
     {
         "text.usetex": True,
-        "font.family": "sans-serif",
+        "text.color": ftc_blk,
+        "text.latex.preamble": "\n".join(preamble),
     }
 )
 
@@ -90,11 +106,11 @@ np.savetxt(
 
 # Create a plot of k vs np_revenues and export to .pdf
 fig, ax = plt.subplots()
-ax.plot(k, np_revenues, color="black")
+ax.plot(k, np_revenues, color=ftc_blk)
 
 # Draw thin, dotted grey lines at switching points
 for i in [1.5, 2.0, 2.5, 3.0]:
-    ax.axvline(i, linestyle=":", color="grey", linewidth=0.5)
+    ax.axvline(i, linestyle=":", color=ftc_dgy, linewidth=0.5)
 
 # Set bounds for the axes
 ax.set_xlim(1.0, 3.5)
@@ -103,6 +119,15 @@ ax.set_ylim(0.0, 2.2)
 # Set labels
 ax.set_xlabel(r"$k_3$")
 ax.set_ylabel("Revenue")
+
+# Use FTC black
+ax.spines["bottom"].set_color(ftc_blk)
+ax.spines["top"].set_color(ftc_blk)
+ax.spines["right"].set_color(ftc_blk)
+ax.spines["left"].set_color(ftc_blk)
+ax.xaxis.label.set_color(ftc_blk)
+ax.yaxis.label.set_color(ftc_blk)
+ax.tick_params(colors=ftc_blk, which="both")
 
 # Make plot 16:9
 fig.set_size_inches(plot_width, plot_height)
@@ -115,21 +140,26 @@ fig.savefig(plot_dir / "3p-revenue.pdf", bbox_inches="tight", transparent=True)
 # Create a plot of k vs np_scores and export to .pdf
 fig, ax = plt.subplots()
 
+# Use FTC black
+ax.xaxis.label.set_color(ftc_blk)
+ax.yaxis.label.set_color(ftc_blk)
+ax.tick_params(colors=ftc_blk, which="both")
+
 # Hide the spines
 for spine in ax.spines.values():
     spine.set_visible(False)
 
 # Control the colors of the lines
-ax.plot(k, np_scores[:, 2], label=r"Player $3$", color="red", linestyle="-")
-ax.plot(k, np_scores[:, 1], label=r"Player $2$", color="green", linestyle="--")
-ax.plot(k, np_scores[:, 0], label=r"Player $1$", color="blue", linestyle=":")
+ax.plot(k, np_scores[:, 2], label=r"Player $3$", color=ftc_red, linestyle="-")
+ax.plot(k, np_scores[:, 1], label=r"Player $2$", color=ftc_grn, linestyle="--")
+ax.plot(k, np_scores[:, 0], label=r"Player $1$", color=ftc_blu, linestyle=":")
 
 # Draw thin, dotted grey lines at switching points
 for i in [1.5, 2.0, 2.5, 3.0]:
-    ax.axvline(i, linestyle=":", color="grey", linewidth=0.5)
+    ax.axvline(i, linestyle=":", color=ftc_dgy, linewidth=0.5)
 
 # Style the legend
-ax.legend(fancybox=False, edgecolor="black", framealpha=1.0)
+ax.legend(fancybox=False, edgecolor=ftc_blk, framealpha=1.0)
 
 # Set bounds for the axes
 ax.set_xlim(1.0, 3.5)
@@ -151,32 +181,37 @@ fig.savefig(plot_dir / "3p-scores.pdf", bbox_inches="tight", transparent=True)
 # Create a plot of k vs np_prizes and export to .pdf
 fig, ax = plt.subplots()
 
+# Use FTC black
+ax.xaxis.label.set_color(ftc_blk)
+ax.yaxis.label.set_color(ftc_blk)
+ax.tick_params(colors=ftc_blk, which="both")
+
 # Hide the spines
 for spine in ax.spines.values():
     spine.set_visible(False)
 
 # Control the colors of the lines
 ax.plot(
-    k, np_prizes[:, 2], label=r"Player $3$", color="red", linestyle="-", linewidth=1.5
+    k, np_prizes[:, 2], label=r"Player $3$", color=ftc_red, linestyle="-", linewidth=1.5
 )
 ax.plot(
     k,
     np_prizes[:, 1],
     label=r"Player $2$",
-    color="green",
+    color=ftc_grn,
     linestyle="--",
     linewidth=1.5,
 )
 ax.plot(
-    k, np_prizes[:, 0], label=r"Player $1$", color="blue", linestyle=":", linewidth=1.5
+    k, np_prizes[:, 0], label=r"Player $1$", color=ftc_blu, linestyle=":", linewidth=1.5
 )
 
 # Draw thin, dotted grey lines at switching points
 for i in [1.5, 2.0, 2.5, 3.0]:
-    ax.axvline(i, linestyle=":", color="grey", linewidth=0.5)
+    ax.axvline(i, linestyle=":", color=ftc_dgy, linewidth=0.5)
 
 # Style the legend
-ax.legend(fancybox=False, edgecolor="black", framealpha=1.0)
+ax.legend(fancybox=False, edgecolor=ftc_blk, framealpha=1.0)
 
 # Set bounds for the axes
 ax.set_xlim(1.0, 3.5)
