@@ -28,6 +28,18 @@ k_grid = np.column_stack(np.broadcast_arrays(5 / 6, 1.0, k))
 plot_dir = pathlib.Path("plots/three_players_plot")
 data_dir = pathlib.Path("data/three_players_plot")
 
+# Plot size
+plot_width = 5.5
+plot_height = 2.3
+
+# Set matplotlib parameters
+plt.rcParams.update(
+    {
+        "text.usetex": True,
+        "font.family": "sans-serif",
+    }
+)
+
 ####################### Setup #######################
 
 # Create directory for plots
@@ -50,21 +62,21 @@ np_revenues = np.array(revenues)
 
 # Save to tsv
 np.savetxt(
-    data_dir / "scores.tsv",
+    data_dir / "3p-scores.tsv",
     np.column_stack((k, np_scores)),
     delimiter="\t",
     header="k\ts1\ts2\ts3",
     comments="",
 )
 np.savetxt(
-    data_dir / "prizes.tsv",
+    data_dir / "3p-prizes.tsv",
     np.column_stack((k, np_prizes)),
     delimiter="\t",
     header="k\tp1\tp2\tp3",
     comments="",
 )
 np.savetxt(
-    data_dir / "revenues.tsv",
+    data_dir / "3p-revenue.tsv",
     np.column_stack((k, np_revenues)),
     delimiter="\t",
     header="k\tR",
@@ -93,10 +105,10 @@ ax.set_xlabel(r"$k_3$")
 ax.set_ylabel("Revenue")
 
 # Make plot 16:9
-fig.set_size_inches(16 / 2.54, 9 / 2.54)
+fig.set_size_inches(plot_width, plot_height)
 
 # Save the plot
-fig.savefig(plot_dir / "revenue.pdf", bbox_inches="tight")
+fig.savefig(plot_dir / "3p-revenue.pdf", bbox_inches="tight", transparent=True)
 
 ###################### Scores
 
@@ -128,10 +140,10 @@ ax.set_xlabel(r"$k_3$")
 ax.set_ylabel("Scores")
 
 # Make plot 16:9
-fig.set_size_inches(16 / 2.54, 9 / 2.54)
+fig.set_size_inches(plot_width, plot_height)
 
 # Save the plot
-fig.savefig(plot_dir / "scores.pdf", bbox_inches="tight")
+fig.savefig(plot_dir / "3p-scores.pdf", bbox_inches="tight", transparent=True)
 
 
 ###################### Prizes
@@ -168,7 +180,7 @@ ax.set_xlabel(r"$k_3$")
 ax.set_ylabel("Prizes")
 
 # Make plot 16:9
-fig.set_size_inches(16 / 2.54, 9 / 2.54)
+fig.set_size_inches(plot_width, plot_height)
 
 # Save the plot
-fig.savefig(plot_dir / "prizes.pdf", bbox_inches="tight")
+fig.savefig(plot_dir / "3p-prizes.pdf", bbox_inches="tight", transparent=True)
