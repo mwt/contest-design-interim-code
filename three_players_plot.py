@@ -11,7 +11,6 @@ The plots are saved in the directory: plots/three_players_plot/
 import pathlib
 
 import matplotlib.pyplot as plt
-import matplotlib.font_manager
 import numpy as np
 
 from three_players import analytical_solution
